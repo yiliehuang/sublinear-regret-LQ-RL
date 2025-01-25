@@ -39,7 +39,7 @@ Both of our experiments are fully reproducible by setting the random seed from 1
 Our results measure the convergence rate and the regret bounds of our proposed model-free algorithm, and we compare these with a model-based benchmark.
 
 #### Convergence Rate
-The convergence rate expressed as a negative exponent (e.g., -0.5) indicates that the parameter converges at a rate proportional to $N^{-	ext{exponent}}$. For example, a convergence rate of -0.5 means the convergence of the policy parameter $\phi_{1,n}$ is proportional to $N^{-0.5}$. This represents faster convergence as the number of iterations increases.
+The convergence rate expressed as a negative exponent (e.g., -0.5) indicates that the parameter converges at a rate proportional to $N^{-	\text{exponent}}$. For example, a convergence rate of -0.5 means the convergence of the policy parameter $\phi_{1,n}$ is proportional to $N^{-0.5}$. This represents faster convergence as the number of iterations increases.
 
 #### Regret Bound
 The regret bound also uses an exponent to describe how the cumulative regret grows with the number of iterations. A lower absolute value of the exponent signifies a more efficient algorithm, indicating slower growth of regret.
