@@ -51,12 +51,12 @@ Below are the figures demonstrating the performance of our model-free algorithm 
 1. **Log MSE for Model-Free Algorithm on $\phi_{1,n}$**:
    ![Log MSE for Model-Free Algorithm on phi1](phi1_log_mse_model-free.png)
    
-   This graph illustrates the declining MSE, showing that the estimation of $\phi_{1,n}$ becomes more accurate with increasing iterations for our model-free algorithm.
+   This graph illustrates the declining mean squared error (MSE), showing that the estimation of $\phi_{1,n}$ becomes more accurate with increasing iterations for our model-free algorithm.
 
 2. **Log MSE for Model-Based Benchmark on $\phi_{1,n}$**:
    ![Log MSE for Model-Based Algorithm on phi1](phi1_log_mse_model-based.png)
 
-   This graph depicts the mean squared error (MSE) in logarithmic scale for the parameter estimation in the model-based approach.
+   This graph depicts the MSE in logarithmic scale for the parameter estimation in the model-based approach.
 
 3. **Log Expected Regret for Model-Free Algorithm**:
    ![Log Expected Regret for Model-Free Algorithm](log_regret_model-free.png)
