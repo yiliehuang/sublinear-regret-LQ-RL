@@ -31,7 +31,7 @@ Both of our experiments are fully reproducible by setting the random seed from 1
 
 | Algorithm Type                | Convergence Rate | Regret Bound | Running Time  |
 | ----------------------------- | ---------------- | ------------ | ------------- |
-| Model-Free Actor-Critic       | -0.50            | 0.73         | ~26 hours     |
+| Model-Free Actor-Critic       | -0.50            | 0.73         | ~24 hours     |
 | Model-Based Plugin Benchmark  | -0.20            | 0.80         | ~50 hours     |
 
 ### Understanding the Results
