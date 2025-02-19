@@ -54,7 +54,7 @@ Below are the figures demonstrating the performance of our model-free algorithm 
    This graph illustrates the declining mean squared error (MSE), showing that the estimation of $\phi_{1,n}$ becomes more accurate with increasing iterations for our model-free algorithm.
 
 2. **Log MSE for Model-Based Benchmark on $\phi_{1,n}$**:
-   ![Log MSE for Model-Based Algorithm on phi1](phi1_log_mse_model-based.png)
+   ![Log MSE for Model-Based Algorithm on phi1](phi1_log_mse_model-based.png?)
 
    This graph depicts the MSE in logarithmic scale for the parameter estimation in the model-based approach.
 
@@ -64,7 +64,7 @@ Below are the figures demonstrating the performance of our model-free algorithm 
    This graph shows the logarithm of the expected regret over logarithmic scale iterations. The linear regression fit helps visualize the growth rate of regret.
 
 4. **Log Expected Regret for Model-Based Benchmark**:
-   ![Log Expected Regret for Model-Based Algorithm](log_regrets_model-based.png)
+   ![Log Expected Regret for Model-Based Algorithm](log_regrets_model-based.png?)
 
    This graph displays the logarithm of the expected regret for the comparative model-based approach over log-scaled iterations.
 
