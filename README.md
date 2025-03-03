@@ -31,8 +31,8 @@ Both of our experiments are fully reproducible by setting the random seed from 1
 
 | Algorithm Type                | Convergence Rate | Regret Bound | Running Time  |
 | ----------------------------- | ---------------- | ------------ | ------------- |
-| Model-Free Actor-Critic       | -0.50            | 0.73         | ~24 hours     |
-| Model-Based Plugin Benchmark  | -0.11            | 0.83         | ~50 hours     |
+| Model-Free Actor-Critic       | -0.50            | 0.73         | ~10 hours     |
+| Model-Based Plugin Benchmark  | -0.09            | 0.83         | ~20 hours     |
 
 ### Understanding the Results
 
@@ -49,22 +49,22 @@ The regret bound also uses an exponent to describe how the cumulative regret gro
 Below are the figures demonstrating the performance of our model-free algorithm and its comparison to a model-based approach:
 
 1. **Log MSE for Model-Free Algorithm on $\phi_{1,n}$**:
-   ![Log MSE for Model-Free Algorithm on phi1](phi1_log_mse_model-free.png)
+   ![Log MSE for Model-Free Algorithm on phi1](phi1_log_mse_model-free.png?)
    
    This graph illustrates the declining mean squared error (MSE), showing that the estimation of $\phi_{1,n}$ becomes more accurate with increasing iterations for our model-free algorithm.
 
 2. **Log MSE for Model-Based Benchmark on $\phi_{1,n}$**:
-   ![Log MSE for Model-Based Algorithm on phi1](phi1_log_mse_model-based.png?)
+   ![Log MSE for Model-Based Algorithm on phi1](phi1_log_mse_model-based.png)
 
    This graph depicts the MSE in logarithmic scale for the parameter estimation in the model-based approach.
 
 3. **Log Expected Regret for Model-Free Algorithm**:
-   ![Log Expected Regret for Model-Free Algorithm](log_regret_model-free.png)
+   ![Log Expected Regret for Model-Free Algorithm](log_regret_model-free.png?)
 
    This graph shows the logarithm of the expected regret over logarithmic scale iterations. The linear regression fit helps visualize the growth rate of regret.
 
 4. **Log Expected Regret for Model-Based Benchmark**:
-   ![Log Expected Regret for Model-Based Algorithm](log_regrets_model-based.png?)
+   ![Log Expected Regret for Model-Based Algorithm](log_regrets_model-based.png)
 
    This graph displays the logarithm of the expected regret for the comparative model-based approach over log-scaled iterations.
 
