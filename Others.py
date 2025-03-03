@@ -48,6 +48,7 @@ class Model_Based_LQ_Simulator:
 
         # other misc
         self.phi_1_list = []
+        self.phi_2_list = []
         self.mat = np.identity(2)  # 2x2 system for A,B
         self.vec = np.zeros(2)
 
@@ -69,9 +70,8 @@ class Model_Based_LQ_Simulator:
     def initialization(self):
         self._n = 0
         self.phi_1_star = -(self.real_C*self.real_D + self.real_B) / self.real_D**2
-        #self.alpha = 0.5
+        self.phi_2_star = 0
         self.phi_1 = -(self.C*self.D + self.B) / self.D**2
-        #self.L = np.ceil(np.log2(self.N / self.initial_m_n + 1)) - 1
         
     def update_hyper_parameter(self):
         self._n += 1
@@ -82,8 +82,7 @@ class Model_Based_LQ_Simulator:
         self.nt = 100
         self.dt = self.T / self.nt
         
-        new_phi_1 = -(self.C*self.D + self.B) / self.D**2
-        self.phi_1 = self.ema_update(self.phi_1, new_phi_1)
+        self.phi_1 = -(self.C*self.D + self.B) / self.D**2
         self.phi_1 = self.clamp(self.phi_1, -2.2, -0.5)
 
 
@@ -112,6 +111,7 @@ class Model_Based_LQ_Simulator:
         u_list = np.array(u_list)
 
         self.phi_1_list.append(self.phi_1)
+        self.phi_2_list.append(self.v_n)
 
         # ---------------------
         # 1) Compute A_n, B_n, G_n, alpha_n for the current iteration
@@ -211,10 +211,6 @@ class Model_Based_LQ_Simulator:
 
     def clamp(self, value, a, b):
         return max(a, min(value, b))
-    
-    def ema_update(self, pre, new):
-        w = 0
-        return pre * w + new * (1 - w)
 
     def run_many_iterations(self):
         for self._n in tqdm(range(self.N)):
@@ -226,25 +222,10 @@ class Model_Based_LQ_Simulator:
         self.C_list = np.array(self.C_list)
         self.D_list = np.array(self.D_list)
 
-    def delta(self, A, B, C, D):
-        # Calculate Delta using the specific values of A, B, C, and D
-        return (B**2 + 2*B*C*D - 2*A*D**2) / D**2
-
-    def k_t(self, t, A, B, C, D):
-        # Calculate k(t) using the given values and specific Delta
-        Delta = self.delta(A, B, C, D)
-        return self.Q / Delta + (self.H - self.Q / Delta) / np.exp(Delta * self.T) * np.exp(Delta * t)
-
-    def value_function(self, A, B, C, D):
-        Delta = self.delta(A, B, C, D)
-        res = self.Q / Delta + (self.H - self.Q / Delta) / \
-            np.exp(Delta * self.T)
-        return -0.5 * res * self.x_0**2
-
-    def get_optimal_value_function(self):
-        return self.value_function(self.real_A, self.real_B, self.real_C, self.real_D)
-
-    def j_hat(self, phi_1):
+    def get_optimal_j_hat(self):
+        return self.j_hat(self.phi_1_star, self.phi_2_star)
+    
+    def j_hat(self, phi_1, phi_2):
         A = self.real_A
         B = self.real_B
         C = self.real_C
@@ -265,11 +246,20 @@ class Model_Based_LQ_Simulator:
                            1 / a_val / 2 * x_0 * x_0 * (Q - common_exp*Q - H*common_exp*a_val))
             return res
 
-        return function_f(phi_1)
+        def function_g(phi_1):
+            a_val = function_a(phi_1)
+            common_exp = np.exp(a_val * T)
+            res = np.where(np.isclose(a_val, 0, atol=1e-12),
+                           D * D * T / 4 * (-2 * H - Q * T),
+                           (Q*T*a_val + Q + H*a_val - common_exp*Q - H*common_exp*a_val) * D * D / 2 / a_val / a_val)
+            return res
+
+        return function_f(phi_1) + phi_2 * function_g(phi_1)
+
 
     def get_all_regrets(self):
-        optimal_val = self.get_optimal_value_function()
-        curr_vals = self.j_hat(np.array(self.phi_1_list))
+        optimal_val = self.get_optimal_j_hat()
+        curr_vals = self.j_hat(np.array(self.phi_1_list), np.array(self.phi_2_list))
 
         all_regrets = [optimal_val - val for val in curr_vals]
         return all_regrets
